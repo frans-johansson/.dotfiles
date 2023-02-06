@@ -23,7 +23,7 @@ The setup script will set up some software I enjoy using in my Linux environment
 Besides running `apt update` and `apt upgrade`, a number of *"bare necessities"* are installed, including `build-essential` and `stow` (utilized in the end of the script to symlink all the config files to the home directory). A few packages are installed from outside the Ubuntu repositories (mostly due to their iffy support in Ubuntu 18.04):
 - The [Starship](https://starship.rs/) prompt (⚠️ This will require a compatible Nerd Font to display properly).
 - The fuzzy-finder utility [fzf](https://github.com/junegunn/fzf).
-- The latest stable version of [Neovim](https://https://neovim.io/).
+- The latest stable version of [Neovim](https://neovim.io/).
 - A number of Rust alternatives to core utils, including `exa`, `fd-find`, `du-dust` and `ripgrep`.
 
 ### Configuration files

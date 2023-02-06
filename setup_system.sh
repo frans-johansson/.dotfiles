@@ -19,13 +19,13 @@ set -ex
 
 
 ## Ensure all the directories exist
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 mkdir -p $SOURCE_DIR
 mkdir -p $BINARY_DIR
 
 
 ## Update apt and install some bare necessities
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 sudo apt update -y
 sudo apt upgrade -y
 
@@ -36,22 +36,27 @@ sudo apt install stow -y                     # Sets up symbolic links to all the
 
 
 ## Download and install non-repository software
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # A better prompt
-[[ ! -f $BINARY_DIR/starship ]] && curl -Ss https://starship.rs/install.sh | sh -s -- -y -b $BINARY_DIR
+[[ ! -f $BINARY_DIR/starship ]] \
+    && curl -Ss https://starship.rs/install.sh | sh -s -- -y -b $BINARY_DIR
 # A better editor
-[[ ! -f $BINARY_DIR/nvim ]] && curl -L https://github.com/neovim/neovim/releases/download/stable/nvim.appimage > $BINARY_DIR/nvim && chmod +x $BINARY_DIR/nvim
+[[ ! -f $BINARY_DIR/nvim ]] \
+    && curl -L https://github.com/neovim/neovim/releases/download/stable/nvim.appimage > $BINARY_DIR/nvim \
+    && chmod +x $BINARY_DIR/nvim
 # A better fuzzy finder
-[[ ! -d $SOURCE_DIR/fzf ]] && git clone https://github.com/junegunn/fzf.git $SOURCE_DIR/fzf && yes | $SOURCE_DIR/fzf/install
+[[ ! -d $SOURCE_DIR/fzf ]] \
+    && git clone https://github.com/junegunn/fzf.git $SOURCE_DIR/fzf \
+    && yes | $SOURCE_DIR/fzf/install
 
 
 ## Set up TMP for tmux
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 [[ ! -d $HOME/.tmux ]] && git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 
 
 ## Rust stuff
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 if ! command -v rustup &> /dev/null
 then
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y 
@@ -62,7 +67,7 @@ cargo install exa fd-find du-dust bottom bat ripgrep  # Some nice alternatives t
 
 
 ## Python stuff
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 python3 -m pip install -U pip
 python3 -m pip install pipenv     # Environment handling
 python3 -m pip install ipython    # For a better REPL experience
@@ -70,20 +75,21 @@ python3 -m pip install ipykernel  # In case I ever want to work with notebooks
 
 
 ## Set up LSPs
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # pylsp
 python3 -m pip install python-lsp-server
 
 # sumneko_lua
 if [[ ! -f $BINARY_DIR/lua-language-server ]]
 then
-   mkdir -p $SOURCE_DIR/sumneko_lua
-   curl -L https://github.com/LuaLS/lua-language-server/releases/download/3.6.9/lua-language-server-3.6.9-linux-x64.tar.gz | tar -xz -C $SOURCE_DIR/sumneko_lua
-   ln -s $SOURCE_DIR/sumneko_lua/bin/lua-language-server $BINARY_DIR/lua-language-server
+    mkdir -p $SOURCE_DIR/sumneko_lua
+    curl -L https://github.com/LuaLS/lua-language-server/releases/download/3.6.9/lua-language-server-3.6.9-linux-x64.tar.gz \
+        | tar -xz -C $SOURCE_DIR/sumneko_lua
+    ln -s $SOURCE_DIR/sumneko_lua/bin/lua-language-server $BINARY_DIR/lua-language-server
 fi
 
 
 ## Use stow to finalize the system config
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 stow . --ignore setup_system.sh
 

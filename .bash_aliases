@@ -1,3 +1,7 @@
+#
+# Alias definitions for bash
+#
+
 # Use exa instead of ls
 alias ls="exa"
 alias ll="ls --oneline --long --group-directories-first"

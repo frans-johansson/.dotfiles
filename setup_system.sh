@@ -29,11 +29,12 @@ mkdir -p $BINARY_DIR
 sudo apt update -y
 sudo apt upgrade -y
 
-sudo apt install build-essential -y          # Literally essential to install
-sudo apt install python3-pip python3-dev -y  # Get Python up and running
-sudo apt install tmuxinator -y               # Neat project handler for tmux
-sudo apt install tig -y                      # A pretty cool and feature-rich text-interface for git
-sudo apt install stow -y                     # Sets up symbolic links to all the configuration files
+sudo apt install build-essential -y           # Literally essential to install
+sudo apt install python3-pip python3-dev -y   # Get Python up and running
+sudo apt install python3.8  python3.8-dev -y  # Ensure a relatively recent version of Python is available too
+sudo apt install tmuxinator -y                # Neat project handler for tmux
+sudo apt install tig -y                       # A pretty cool and feature-rich text-interface for git
+sudo apt install stow -y                      # Sets up symbolic links to all the configuration files
 
 
 ## Download and install non-repository software
@@ -73,6 +74,8 @@ python3 -m pip install -U pip
 python3 -m pip install pipenv     # Environment handling
 python3 -m pip install ipython    # For a better REPL experience
 python3 -m pip install ipykernel  # In case I ever want to work with notebooks
+
+python3.8 -m pip install neovim   # Specically required to make Neovim stop complaining
 
 
 ## Set up LSPs

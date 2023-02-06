@@ -32,6 +32,7 @@ sudo apt upgrade -y
 sudo apt install build-essential -y          # Literally essential to install
 sudo apt install python3-pip python3-dev -y  # Get Python up and running
 sudo apt install tmuxinator -y               # Neat project handler for tmux
+sudo apt install tig -y                      # A pretty cool and feature-rich text-interface for git
 sudo apt install stow -y                     # Sets up symbolic links to all the configuration files
 
 
@@ -63,7 +64,7 @@ then
 fi
 
 source "$HOME/.cargo/env"
-cargo install exa fd-find du-dust bottom bat ripgrep  # Some nice alternatives to the core utils
+cargo install exa fd-find du-dust bottom bat ripgrep zoxide  # Some nice alternatives to the core utils
 
 
 ## Python stuff

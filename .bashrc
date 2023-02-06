@@ -24,3 +24,4 @@ fi
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 source "$HOME/.cargo/env"
 eval "$(starship init bash)"
+eval "$(zoxide init bash)"

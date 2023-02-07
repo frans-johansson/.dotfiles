@@ -23,12 +23,12 @@ then
 fi
 
 # Source environment variables
-if [ -f ~/.bash_env ]; then
+if [[ -f ~/.bash_env ]]; then
     . ~/.bash_env
 fi
 
 # Source aliases
-if [ -f ~/.bash_aliases ]; then
+if [[ -f ~/.bash_aliases ]]; then
     . ~/.bash_aliases
 fi
 

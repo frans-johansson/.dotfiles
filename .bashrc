@@ -16,7 +16,11 @@ shopt -s histappend      # Only append, never overwrite, the history file
 # Check for window size updates
 shopt -s checkwinsize
 
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+# If we have access to bat, use it as the manpager
+if command -v bat &> /dev/null
+then
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"  
+fi
 
 # Source environment variables
 if [ -f ~/.bash_env ]; then

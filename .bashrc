@@ -17,8 +17,7 @@ shopt -s histappend      # Only append, never overwrite, the history file
 shopt -s checkwinsize
 
 # If we have access to bat, use it as the manpager
-if command -v bat &> /dev/null
-then
+if ! command -v bat &> /dev/null; then
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"  
 fi
 

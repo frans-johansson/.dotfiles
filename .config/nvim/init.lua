@@ -6,7 +6,7 @@ require('core.colorscheme')
 
 -- Then we configure all the plugin stuff here
 require('plugins.lsp')
--- require('plugins.dap')
+require('plugins.dap')
 require('plugins.cmp')
 require('plugins.telescope')
 require('plugins.treesitter')

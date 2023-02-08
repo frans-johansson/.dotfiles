@@ -45,6 +45,11 @@ packer.startup(function(use)
     },
   }
 
+  -- Debug adapters
+  use 'mfussenegger/nvim-dap'
+  use 'mfussenegger/nvim-dap-python'
+  use 'rcarriga/nvim-dap-ui'
+
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
     requires = {

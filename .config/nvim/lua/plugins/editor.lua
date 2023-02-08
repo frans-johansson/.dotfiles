@@ -49,6 +49,7 @@ dashboard.section.buttons.opts.hl = "Keyword"
 
 dashboard.opts.opts.noautocmd = true
 require('alpha').setup(dashboard.opts)
+vim.keymap.set('n', '<leader>a', '<cmd>Alpha<cr>', { desc = 'Go to the [A]lpha dashboard' })
 
 -- Turn on lsp status information
 require('fidget').setup()

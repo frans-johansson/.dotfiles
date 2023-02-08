@@ -1,9 +1,16 @@
 -- Neodev setup before LSP config
 require("neodev").setup()
 
+-- Set up cool signs for diagnostics
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
+
 -- LSP settings.
 -- This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -73,10 +80,3 @@ require('lspconfig')['pylsp'].setup {
   on_attach = on_attach,
   capabilities = capabilities
 }
-
--- Set up cool signs for diagnostics
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-end

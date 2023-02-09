@@ -13,6 +13,14 @@ cd ~/.dotfiles
 
 Changes will not be noticeable until you start a new shell, e.g. by running `bash`.
 
+In case of errors to the tune of *"stowing ... would cause conflicts"*, you probably need to move your existing config files out of your home directory. Fortunatly, this is what the `backup_system.sh` script is for.
+
+```sh
+# Try running this in case stow complains about conflicts
+./backup_system.sh
+stow . --ignore .*\.sh
+```
+
 ## Requirements
 - A [Nerd Font](https://www.nerdfonts.com/) of your choice
 

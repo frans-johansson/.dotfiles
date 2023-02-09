@@ -6,10 +6,9 @@
 # ┃ moved to a backup directory.                                                 ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ 
 #
-#  Note: This script is part of my personal .dotfiles repository. The final step
-#        utilizing stow to set up all the config files will only work if this is
-#        cloned from my repository, or if you're running this script from your
-#        own .dotfiles directory.
+#  Note: This script is part of my personal .dotfiles repository. It is very
+#        unlikely to run as intended if invoked from anywhere else than a typical
+#        .dotfiles directory. You have been warned.
 #
 
 # Exit after first error

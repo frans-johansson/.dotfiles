@@ -99,5 +99,5 @@ python3 -m pip install debugpy
 
 ## Use stow to finalize the system config
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-stow . --ignore setup_system.sh
+stow . --ignore .*\.sh
 

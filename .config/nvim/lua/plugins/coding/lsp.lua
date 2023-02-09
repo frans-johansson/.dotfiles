@@ -10,43 +10,37 @@ end
 
 -- LSP settings.
 -- This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(client, bufnr)
-  local nmap = function(keys, func, desc)
-    if desc then
-      desc = 'LSP: ' .. desc
-    end
+local on_attach = function(_, bufnr)
+  local lsp_map = require('helpers.keys').lsp_map
 
-    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
-  end
+  lsp_map('<leader>rn', vim.lsp.buf.rename, bufnr, '[R]e[n]ame')
+  lsp_map('<leader>ca', vim.lsp.buf.code_action, bufnr, '[C]ode [A]ction')
 
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-
-  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-  nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-  nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  lsp_map('gd', vim.lsp.buf.definition, bufnr, '[G]oto [D]efinition')
+  lsp_map('gr', require('telescope.builtin').lsp_references, bufnr, '[G]oto [R]eferences')
+  lsp_map('gI', vim.lsp.buf.implementation, bufnr, '[G]oto [I]mplementation')
+  lsp_map('<leader>D', vim.lsp.buf.type_definition, bufnr, 'Type [D]efinition')
+  lsp_map('<leader>ds', require('telescope.builtin').lsp_document_symbols, bufnr, '[D]ocument [S]ymbols')
+  lsp_map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, bufnr, '[W]orkspace [S]ymbols')
 
   -- See `:help K` for why this keymap
-  -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  -- lsp_map('K', vim.lsp.buf.hover, bufnr, 'Hover Documentation')
+  -- lsp_map('<C-k>', vim.lsp.buf.signature_help, bufnr, 'Signature Documentation')
 
   -- Lesser used LSP functionality
-  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-  nmap('<leader>wl', function()
+  lsp_map('gD', vim.lsp.buf.declaration, bufnr, '[G]oto [D]eclaration')
+  lsp_map('<leader>wa', vim.lsp.buf.add_workspace_folder, bufnr, '[W]orkspace [A]dd Folder')
+  lsp_map('<leader>wr', vim.lsp.buf.remove_workspace_folder, bufnr, '[W]orkspace [R]emove Folder')
+  lsp_map('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, '[W]orkspace [L]ist Folders')
+  end, bufnr, '[W]orkspace [L]ist Folders')
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
 
-  nmap('<leader>fd', '<cmd>Format<cr>', '[F]ormat [D]ocument')
+  lsp_map('<leader>fd', '<cmd>Format<cr>', bufnr, '[F]ormat [D]ocument')
 end
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers

@@ -3,6 +3,4 @@
 local colorscheme = 'catppuccin'
 -- local colorscheme = 'rose-pine'
 
-vim.cmd.colorscheme(colorscheme)
-
 return colorscheme

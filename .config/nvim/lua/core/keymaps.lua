@@ -1,9 +1,8 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-local function map(mode, rhs, lhs, desc)
-	vim.keymap.set(mode, rhs, lhs, { silent = true, desc = desc })
-end
+local map = require('helpers.keys').map
+
 
 map({ 'n', 'v' }, '<space>', '<nop>')
 map('i', 'jk', '<esc>')

@@ -20,3 +20,11 @@ alias gcm="git commit --message"
 alias grb="git rebase"
 alias gcp="git cherry-pick"
 
+# Git logging
+alias gl="git log --oneline --decorate --all"
+alias glg="gl --graph"
+
+# Some WSL specific aliases
+alias exp="explorer.exe"
+alias clip="clip.exe"
+

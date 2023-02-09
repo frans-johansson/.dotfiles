@@ -3,17 +3,16 @@ vim.g.maplocalleader = ' '
 
 local map = require('helpers.keys').map
 
-
 map({ 'n', 'v' }, '<space>', '<nop>')
 map('i', 'jk', '<esc>')
 
 -- Quick access to some common actions
-map('n', '<leader>wf', '<cmd>w<cr>', { desc = '[W]rite [F]ile' })
-map('n', '<leader>Wf', '<cmd>wa<cr>', { desc = '[W]rite All [F]iles' })
-map('n', '<leader>q', '<cmd>q<cr>', { desc = '[Q]uit' })
-map('n', '<leader>Q', '<cmd>qa!<cr>', { desc = '[Q]uit' })
-map('n', '<leader>dd', '<cmd>bdelete<cr>', { desc = '[D]elete Buffer' })
-map('n', '<leader>c', '<cmd>close<cr>', { desc = '[C]lose Window' })
+map('n', '<leader>wf', '<cmd>w<cr>', '[W]rite [F]ile')
+map('n', '<leader>Wf', '<cmd>wa<cr>', '[W]rite All [F]iles')
+map('n', '<leader>q', '<cmd>q<cr>', '[Q]uit')
+map('n', '<leader>Q', '<cmd>qa!<cr>', '[Q]uit')
+map('n', '<leader>dd', '<cmd>bdelete<cr>', '[D]elete Buffer')
+map('n', '<leader>c', '<cmd>close<cr>', '[C]lose Window')
 
 -- Diagnostic keymaps
 map('n', '[d', vim.diagnostic.goto_prev)
@@ -22,16 +21,16 @@ map('n', '<leader>x', vim.diagnostic.open_float)
 -- map('n', '<leader>q', vim.diagnostic.setloclist)
 
 -- Better window navigation
-map('n', '<C-h>', '<C-w><C-h>', { desc = 'Navigate windows to the left' })
-map('n', '<C-j>', '<C-w><C-j>', { desc = 'Navigate windows down' })
-map('n', '<C-k>', '<C-w><C-k>', { desc = 'Navigate windows up' })
-map('n', '<C-l>', '<C-w><C-l>', { desc = 'Navigate windows to the right' })
+map('n', '<C-h>', '<C-w><C-h>', 'Navigate windows to the left')
+map('n', '<C-j>', '<C-w><C-j>', 'Navigate windows down')
+map('n', '<C-k>', '<C-w><C-k>', 'Navigate windows up')
+map('n', '<C-l>', '<C-w><C-l>', 'Navigate windows to the right')
 
 -- Move with Shift-Arrows
-map('n', '<S-Left>', '<C-w><S-h>', { desc = 'Move window to the left' })
-map('n', '<S-Down>', '<C-w><S-j>', { desc = 'Move window down' })
-map('n', '<S-Up>', '<C-w><S-k>', { desc = 'Move window up' })
-map('n', '<S-Right>', '<C-w><S-l>', { desc = 'Move window to the right' })
+map('n', '<S-Left>', '<C-w><S-h>', 'Move window to the left')
+map('n', '<S-Down>', '<C-w><S-j>', 'Move window down')
+map('n', '<S-Up>', '<C-w><S-k>', 'Move window up')
+map('n', '<S-Right>', '<C-w><S-l>', 'Move window to the right')
 
 -- Resize with arrows
 map("n", "<C-Up>", ":resize +2<CR>")

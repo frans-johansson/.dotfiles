@@ -2,7 +2,7 @@
 > I'm getting sick of re-installing and re-configuring everything everytime I (inevitably) brick my system...
 > This is the solution!
 
-Welcome to my personal dotfiles repository! It comes with a post-installation script tested on Ubuntu 18.04 LTS, which should also work on most modern Ubuntu flavors and derivatives.
+Welcome to my personal dotfiles repository! It comes with a post-installation script tested on Ubuntu 22.04 LTS, which should also work on most modern Ubuntu flavors and derivatives.
 
 ## Quickstart
 ```sh

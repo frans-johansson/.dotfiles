@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┑
-# ┃ Setup script for Ubuntu environments. Tailored to work for Ubuntu 18.04 LTS. ┃
+# ┃ Setup script for Ubuntu environments. Tailored to work for Ubuntu 22.04 LTS. ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ 
 #
 #  Note: This script is part of my personal .dotfiles repository. The final step
@@ -53,7 +53,7 @@ function skipping()
 # Informs the user about how the script works
 function print_usage()
 {
-    printf "Setup script tailored for Ubuntu 18.04\n\n"
+    printf "Setup script tailored for Ubuntu 22.04\n\n"
     printf "Usage:\n"
     printf "  ./setup_system.sh [options]\n\n"
     printf "OPTIONS\n"
@@ -139,7 +139,6 @@ function install_apt_packages()
 {
     sudo apt install build-essential -y           # Literally essential to install
     sudo apt install python3-pip python3-dev -y   # Get Python up and running
-    sudo apt install python3.8  python3.8-dev -y  # Ensure a relatively recent version of Python is available too
     sudo apt install tmuxinator -y                # Neat project handler for tmux
     sudo apt install tig -y                       # A pretty cool and feature-rich text-interface for git
     sudo apt install stow -y                      # Sets up symbolic links to all the configuration files
@@ -223,8 +222,7 @@ function python_stuff()
     python3 -m pip install pipenv     # Environment handling
     python3 -m pip install ipython    # For a better REPL experience
     python3 -m pip install ipykernel  # In case I ever want to work with notebooks
-
-    python3.8 -m pip install neovim   # Specically required to make Neovim stop complaining
+    python3 -m pip install neovim     # Specically required to make Neovim stop complaining
 }
 printf "${INFO}Setting up Python 3...\n${NC}"
 handle_step python_stuff $SKIP_PYTHON

@@ -124,6 +124,9 @@ packer.startup(function(use)
   use 'echasnovski/mini.move' -- Move stuff
   use 'echasnovski/mini.pairs' -- Pairs of stuff
 
+  -- Highlight the word under the cursor
+  use 'RRethy/vim-illuminate'
+
   -- Themes
   use 'ellisonleao/gruvbox.nvim'
 

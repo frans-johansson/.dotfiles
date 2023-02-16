@@ -41,6 +41,9 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 
   lsp_map('<leader>fd', '<cmd>Format<cr>', bufnr, '[F]ormat [D]ocument')
+
+  -- Attach and configure vim-illuminate
+  require('illuminate').on_attach(client)
 end
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers

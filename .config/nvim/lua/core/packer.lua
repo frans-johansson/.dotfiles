@@ -152,6 +152,9 @@ packer.startup(function(use)
   end
 end)
 
+-- Easily re-sync Packer
+require('helpers.keys').map('n', '<leader>ps', '<cmd>PackerSync<cr>', '[P]acker [S]ync')
+
 -- When we are bootstrapping a configuration, it doesn't
 -- make sense to execute the rest of the init.lua.
 --

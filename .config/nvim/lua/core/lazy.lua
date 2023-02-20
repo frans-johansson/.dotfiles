@@ -24,3 +24,7 @@ require('helpers.keys').set_leader(' ')
 -- Load plugins from specifications
 -- (The leader key must be set before this)
 lazy.setup('plugins')
+
+-- Might as well set up an easy-access keybinding
+
+require('helpers.keys').map('n', '<leader>L', lazy.show, 'Open [L]azy.nvim')

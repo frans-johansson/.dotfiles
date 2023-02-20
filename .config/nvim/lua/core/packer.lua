@@ -94,6 +94,7 @@ packer.startup(function(use)
 
   -- Git related plugins
   use 'lewis6991/gitsigns.nvim'
+  use 'tpope/vim-fugitive'
 
   -- Other fun stuff
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
@@ -118,11 +119,12 @@ packer.startup(function(use)
     }
   }
 
+  use 'tpope/vim-surround' -- Surround stuff
+
   -- Some plugins from the mini library
   use 'echasnovski/mini.align' -- Align stuff
   use 'echasnovski/mini.surround' -- Surround stuff
   use 'echasnovski/mini.move' -- Move stuff
-  use 'echasnovski/mini.pairs' -- Pairs of stuff
 
   -- Highlight the word under the cursor
   use 'RRethy/vim-illuminate'

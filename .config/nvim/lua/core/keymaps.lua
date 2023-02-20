@@ -1,9 +1,6 @@
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
 local map = require('helpers.keys').map
 
-map({ 'n', 'v' }, '<space>', '<nop>')
+-- Blazingly fast way out of insert mode
 map('i', 'jk', '<esc>')
 
 -- Quick access to some common actions
@@ -11,7 +8,6 @@ map('n', '<leader>wf', '<cmd>w<cr>', '[W]rite [F]ile')
 map('n', '<leader>Wf', '<cmd>wa<cr>', '[W]rite All [F]iles')
 map('n', '<leader>q', '<cmd>q<cr>', '[Q]uit')
 map('n', '<leader>Q', '<cmd>qa!<cr>', '[Q]uit')
-map('n', '<leader>dd', '<cmd>bdelete<cr>', '[D]elete Buffer')
 map('n', '<leader>c', '<cmd>close<cr>', '[C]lose Window')
 
 -- Diagnostic keymaps
@@ -38,6 +34,12 @@ map("n", "<C-Up>", ":resize +2<CR>")
 map("n", "<C-Down>", ":resize -2<CR>")
 map("n", "<C-Left>", ":vertical resize +2<CR>")
 map("n", "<C-Right>", ":vertical resize -2<CR>")
+
+-- Deleting buffers
+local buffers = require('helpers.buffers')
+map('n', '<leader>dd', buffers.delete_this, '[D]elete the current buffer')
+map('n', '<leader>do', buffers.delete_others, '[D]elete the [O]ther buffers')
+map('n', '<leader>da', buffers.delete_all, '[D]elete [A]ll buffers')
 
 -- Navigate buffers
 map("n", "<S-l>", ":bnext<CR>")

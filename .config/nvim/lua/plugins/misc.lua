@@ -1,7 +1,8 @@
 -- Miscelaneous fun stuff
 return {
     -- Comment with haste
-    { 'numToStr/Comment.nvim',
+    {
+        'numToStr/Comment.nvim',
         config = {}
     },
     -- Align stuff
@@ -17,6 +18,13 @@ return {
         config = function()
             require('mini.move').setup()
         end
+    },
+    -- Better buffer closing actions. Available via the buffers helper.
+    {
+        'kazhala/close-buffers.nvim',
+        config = {
+            preserve_window_layout = { 'this', 'nameless' }
+        }
     },
     'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
     'tpope/vim-surround', -- Surround stuff

@@ -12,8 +12,14 @@ M.lsp_map = function(lhs, rhs, bufnr, desc)
     vim.keymap.set('n', lhs, rhs, { silent = true, buffer = bufnr, desc = desc })
 end
 
-M.dap_map  =  function(mode, lhs, rhs, description)
+M.dap_map = function(mode, lhs, rhs, description)
     M.map(mode, lhs, rhs, { desc = 'DBG: ' .. description })
+end
+
+M.set_leader = function (key)
+    vim.g.mapleader = key
+    vim.g.maplocalleader = key
+    M.map({ 'n', 'v' }, key, '<nop>')
 end
 
 return M

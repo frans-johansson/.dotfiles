@@ -10,7 +10,7 @@ end
 
 -- LSP settings.
 -- This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   local lsp_map = require('helpers.keys').lsp_map
 
   lsp_map('<leader>rn', vim.lsp.buf.rename, bufnr, '[R]e[n]ame')
@@ -51,7 +51,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Lua
-require('lspconfig')['sumneko_lua'].setup {
+require('lspconfig')['lua_ls'].setup {
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {

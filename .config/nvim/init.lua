@@ -12,5 +12,5 @@ require('plugins.editor.ui')
 require('plugins.editor.misc')
 require('plugins.editor.alpha')
 require('plugins.editor.telescope')
-require('plugins.utils')
+require('plugins.editor.utils')
 

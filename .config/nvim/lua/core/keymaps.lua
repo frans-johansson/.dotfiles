@@ -17,7 +17,8 @@ map('n', '<leader>c', '<cmd>close<cr>', '[C]lose Window')
 -- Diagnostic keymaps
 map('n', '[d', vim.diagnostic.goto_prev)
 map('n', ']d', vim.diagnostic.goto_next)
-map('n', '<leader>x', vim.diagnostic.open_float)
+-- This is handled by Trouble largely now
+-- map('n', '<leader>x', vim.diagnostic.open_float)
 -- map('n', '<leader>q', vim.diagnostic.setloclist)
 
 -- Better window navigation

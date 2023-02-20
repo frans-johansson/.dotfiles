@@ -36,3 +36,4 @@ fi
 source "$HOME/.cargo/env"
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
+eval "$(direnv hook bash)"

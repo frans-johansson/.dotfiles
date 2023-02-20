@@ -209,7 +209,7 @@ function rust_stuff()
     fi
 
     source "$HOME/.cargo/env"
-    cargo install exa fd-find du-dust bottom bat ripgrep zoxide  # Some nice alternatives to the core utils
+    cargo install exa fd-find du-dust bottom bat ripgrep zoxide difftastic  # Some nice alternatives to the core utils
 }
 printf "${INFO}Setting up Rust and installing some utilities with cargo...\n${NC}"
 handle_step rust_stuff $SKIP_RUST

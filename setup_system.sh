@@ -141,6 +141,7 @@ function install_apt_packages()
     sudo apt install python3-pip python3-dev -y   # Get Python up and running
     sudo apt install tmuxinator -y                # Neat project handler for tmux
     sudo apt install tig -y                       # A pretty cool and feature-rich text-interface for git
+    sudo apt install fuse -y                      # Allows for environment configuration on a directory level
     sudo apt install direnv -y                    # Allows for environment configuration on a directory level
     sudo apt install stow -y                      # Sets up symbolic links to all the configuration files
 }

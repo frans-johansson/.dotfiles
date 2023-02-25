@@ -237,7 +237,7 @@ function setup_lsp()
     # pylsp
     if ! command -v pylsp &> /dev/null
     then
-        python3 -m pip install python-lsp-server
+        python3 -m pip install python-lsp-server[all]
     else
         skipping pylsp
     fi

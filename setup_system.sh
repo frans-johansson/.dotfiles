@@ -174,7 +174,7 @@ printf "${INFO}Installing additional external packages...\n${NC}"
 handle_step non_apt_packages $SKIP_EXTERNAL
 
 
-## Set up TMP for tmux
+## Set up TPM for tmux
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function setup_tpm()
 {

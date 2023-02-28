@@ -3,7 +3,7 @@ return {
     -- Comment with haste
     {
         'numToStr/Comment.nvim',
-        config = {}
+        opts = {}
     },
     -- Align stuff
     {
@@ -22,7 +22,7 @@ return {
     -- Better buffer closing actions. Available via the buffers helper.
     {
         'kazhala/close-buffers.nvim',
-        config = {
+        opts = {
             preserve_window_layout = { 'this', 'nameless' }
         }
     },

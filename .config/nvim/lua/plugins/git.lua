@@ -2,7 +2,12 @@
 return {
     {
         'lewis6991/gitsigns.nvim',
-        config = {}
+        opts = {}
+    },
+    {
+        'akinsho/git-conflict.nvim',
+        version = "*",
+        opts = {}
     },
     'tpope/vim-fugitive',
 }

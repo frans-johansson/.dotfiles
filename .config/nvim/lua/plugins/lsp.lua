@@ -3,12 +3,18 @@ return {
     {
         'neovim/nvim-lspconfig',
         dependencies = {
+            'williamboman/mason.nvim',
+            'williamboman/mason-lspconfig.nvim',
             'j-hui/fidget.nvim',
             'folke/neodev.nvim',
             'RRethy/vim-illuminate',
             'hrsh7th/cmp-nvim-lsp'
         },
         config = function()
+            -- Set up Mason before anything else
+            require('mason').setup()
+            require('mason-lspconfig').setup()
+
             -- Neodev setup before LSP config
             require("neodev").setup()
 

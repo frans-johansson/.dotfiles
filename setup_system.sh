@@ -139,6 +139,7 @@ function install_apt_packages()
 {
     sudo apt install build-essential -y           # Literally essential to install
     sudo apt install python3-pip python3-dev -y   # Get Python up and running
+    sudo apt install python3.10-venv -y           # Get Python up and running
     sudo apt install tmuxinator -y                # Neat project handler for tmux
     sudo apt install tig -y                       # A pretty cool and feature-rich text-interface for git
     sudo apt install fuse -y                      # Allows for environment configuration on a directory level
@@ -224,7 +225,7 @@ function python_stuff()
     python3 -m pip install pipenv     # Environment handling
     python3 -m pip install ipython    # For a better REPL experience
     python3 -m pip install ipykernel  # In case I ever want to work with notebooks
-    python3 -m pip install neovim     # Specically required to make Neovim stop complaining
+    python3 -m pip install pynvim     # Specically required to make Neovim stop complaining
 }
 printf "${INFO}Setting up Python 3...\n${NC}"
 handle_step python_stuff $SKIP_PYTHON

@@ -61,8 +61,6 @@ function print_usage()
     printf "  --no-external     Skip installing external (non-repository) packages\n"
     printf "  --no-rust         Skip installing Rust and related utilites\n"
     printf "  --no-python       Skip installing Python packages\n"
-    printf "  --no-lsp          Skip installing language servers\n"
-    printf "  --no-dap          Skip installing debug adapters\n"
     printf "  --no-stow         Skip stowing the config files into HOME\n"
 }
 
@@ -85,14 +83,6 @@ while [[ $# -gt 0 ]]; do
       ;;
     --no-python)
       SKIP_PYTHON=1
-      shift
-      ;;
-    --no-lsp)
-      SKIP_LSP=1
-      shift
-      ;;
-    --no-dap)
-      SKIP_DAP=1
       shift
       ;;
     --no-stow)
@@ -229,89 +219,6 @@ function python_stuff()
 }
 printf "${INFO}Setting up Python 3...\n${NC}"
 handle_step python_stuff $SKIP_PYTHON
-
-
-## Set up LSPs
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function setup_lsp()
-{
-    # pylsp
-    if ! command -v pylsp &> /dev/null
-    then
-        python3 -m pip install python-lsp-server[all]
-    else
-        skipping pylsp
-    fi
-
-    # sumneko_lua
-    if [[ ! -f $BINARY_DIR/lua-language-server ]]
-    then
-        mkdir -p $SOURCE_DIR/sumneko_lua
-        # Cannot run this through since that suppresses all stdout activity
-        curl -Ls https://github.com/LuaLS/lua-language-server/releases/download/3.6.9/lua-language-server-3.6.9-linux-x64.tar.gz \
-            | tar -xz -C $SOURCE_DIR/sumneko_lua
-        ln -s $SOURCE_DIR/sumneko_lua/bin/lua-language-server $BINARY_DIR/lua-language-server
-    else
-        skipping lua-language-server
-    fi
-
-    # clangd-15
-    if [[ ! -f $BINARY_DIR/clangd ]]
-    then
-        # Cannot run this through since that suppresses all stdout activity
-        curl -Ls https://github.com/clangd/clangd/releases/download/15.0.0/clangd-linux-15.0.0.zip > $SOURCE_DIR/clangd.zip
-        unzip $SOURCE_DIR/clangd.zip -d $SOURCE_DIR
-        ln -s $(find $SOURCE_DIR -type f -name clangd) $BINARY_DIR/clangd
-        rm $SOURCE_DIR/clangd.zip
-    else
-        skipping clangd
-    fi
-
-    # rust-analyzer
-    if [[ ! -f $BINARY_DIR/rust-analyzer ]]
-    then
-        # Cannot run this through since that suppresses all stdout activity
-        curl -Ls https://github.com/rust-lang/rust-analyzer/releases/download/2023-02-13/rust-analyzer-x86_64-unknown-linux-gnu.gz \
-            | gunzip > $BINARY_DIR/rust-analyzer
-        chmod +x $BINARY_DIR/rust-analyzer
-    else
-        skipping rust-analyzer
-    fi
-
-    # bashls
-    if ! command -v bash-language-server &> /dev/null
-    then
-        curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash - &&\
-        if [[ $? -eq 0 ]]
-        then
-            sudo apt install nodejs -y
-            sudo npm i -g bash-language-server
-            sudo apt install shellcheck
-        else
-            printf "${WARNING}WARNING: Unable to install NodeJS v.14 which is required by bash-language-server!${NC}\n"
-        fi
-    else
-        skipping bash-language-server
-    fi
-}
-printf "${INFO}Installing language servers...\n${NC}"
-handle_step setup_lsp $SKIP_LSP
-
-
-## Set up DAPs
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-function setup_dap()
-{
-    # debugpy
-    if python3 -m pip freeze | grep -q debugpy
-    then
-        skipping debugpy
-    else
-        python3 -m pip install debugpy
-    fi
-}
-printf "${INFO}Installing debug adapters...\n${NC}"
-handle_step setup_dap $SKIP_DAP
 
 
 ## Use stow to finalize the system config

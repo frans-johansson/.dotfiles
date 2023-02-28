@@ -28,7 +28,7 @@ return {
 
 			dashboard.opts.opts.noautocmd = true
 			require("alpha").setup(dashboard.opts)
-			require("helpers.keys").map("n", "<leader>a", "<cmd>Alpha<cr>", "Go to the [A]lpha dashboard")
+			require("helpers.keys").map("n", "<leader>a", "<cmd>Alpha<cr>", "Show dashboard")
 		end,
 	},
 }

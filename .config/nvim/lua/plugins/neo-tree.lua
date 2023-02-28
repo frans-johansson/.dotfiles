@@ -14,7 +14,7 @@ return {
 				{ "n", "v" },
 				"<leader>e",
 				"<cmd>NeoTreeRevealToggle<cr>",
-				"Show the file [E]xplorer"
+				"Toggle file explorer"
 			)
 		end,
 	},

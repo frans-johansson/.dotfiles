@@ -17,7 +17,7 @@ return {
 			-- DAP keybindings
 			local dap_map = require("helpers.keys").dap_map
 
-			dap_map("n", "<F5>", function()
+			dap_map("n", "<F6>", function()
 				dap.continue()
 			end, "Start debugging")
 			dap_map("n", "<F10>", function()
@@ -29,30 +29,27 @@ return {
 			dap_map("n", "<F12>", function()
 				dap.step_out()
 			end, "Step out")
-			dap_map("n", "<leader>dc", function()
+			dap_map("n", "<leader>bs", function()
 				dap.close()
-			end, "[D]ebug [C]lose")
-			dap_map("n", "<leader>b", function()
+			end, "Stop debgging")
+			dap_map("n", "<leader>bb", function()
 				dap.toggle_breakpoint()
-			end, "Toggle [B]reakpoint")
-			dap_map("n", "<leader>B", function()
-				dap.set_breakpoint()
-			end, "Set [B]reakpoint")
-			dap_map("n", "<leader>lp", function()
+			end, "Toggle breakpoint")
+			dap_map("n", "<leader>bl", function()
 				dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
-			end, "Set [L]og [P]oint")
-			dap_map("n", "<leader>dr", function()
+			end, "Set logpoint")
+			dap_map("n", "<leader>br", function()
 				dap.repl.open()
-			end, "Open [D]ebug [R]EPL")
-			dap_map("n", "<leader>rl", function()
+			end, "Open debug REPL")
+			dap_map("n", "<leader>bL", function()
 				dap.run_last()
-			end, "[R]un [L]ast")
+			end, "Run last")
 
 			-- DAP UI
 			require("dapui").setup()
-			dap_map("n", "<leader>du", function()
+			dap_map("n", "<leader>ud", function()
 				require("dapui").toggle()
-			end, "Toggle the [D]ebug [U]I")
+			end, "Toggle debugging UI")
 
 			-- Python
 			require("dap-python").setup("/usr/bin/python3") -- Sane default configs

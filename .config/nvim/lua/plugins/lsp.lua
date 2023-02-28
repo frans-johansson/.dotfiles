@@ -15,6 +15,9 @@ return {
 			require("mason").setup()
 			require("mason-lspconfig").setup()
 
+			-- Quick access via keymap
+			require("helpers.keys").map("n", "<leader>M", "<cmd>Mason<cr>", "Show Mason")
+
 			-- Neodev setup before LSP config
 			require("neodev").setup()
 
@@ -52,36 +55,23 @@ return {
 			local on_attach = function(client, bufnr)
 				local lsp_map = require("helpers.keys").lsp_map
 
-				lsp_map("<leader>rn", vim.lsp.buf.rename, bufnr, "[R]e[n]ame")
-				lsp_map("<leader>ca", vim.lsp.buf.code_action, bufnr, "[C]ode [A]ction")
+				lsp_map("<leader>lr", vim.lsp.buf.rename, bufnr, "Rename symbol")
+				lsp_map("<leader>la", vim.lsp.buf.code_action, bufnr, "Code action")
+				lsp_map("<leader>ld", vim.lsp.buf.type_definition, bufnr, "Type definition")
+				lsp_map("<leader>ls", require("telescope.builtin").lsp_document_symbols, bufnr, "Document symbols")
 
-				lsp_map("gd", vim.lsp.buf.definition, bufnr, "[G]oto [D]efinition")
-				lsp_map("gr", require("telescope.builtin").lsp_references, bufnr, "[G]oto [R]eferences")
-				lsp_map("gI", vim.lsp.buf.implementation, bufnr, "[G]oto [I]mplementation")
-				lsp_map("<leader>D", vim.lsp.buf.type_definition, bufnr, "Type [D]efinition")
-				lsp_map("<leader>ds", require("telescope.builtin").lsp_document_symbols, bufnr, "[D]ocument [S]ymbols")
-				lsp_map(
-					"<leader>ws",
-					require("telescope.builtin").lsp_dynamic_workspace_symbols,
-					bufnr,
-					"[W]orkspace [S]ymbols"
-				)
+				lsp_map("gd", vim.lsp.buf.definition, bufnr, "Goto Definition")
+				lsp_map("gr", require("telescope.builtin").lsp_references, bufnr, "Goto References")
+				lsp_map("gI", vim.lsp.buf.implementation, bufnr, "Goto Implementation")
 				lsp_map("K", vim.lsp.buf.hover, bufnr, "Hover Documentation")
-
-				-- Lesser used LSP functionality
-				lsp_map("gD", vim.lsp.buf.declaration, bufnr, "[G]oto [D]eclaration")
-				lsp_map("<leader>wa", vim.lsp.buf.add_workspace_folder, bufnr, "[W]orkspace [A]dd Folder")
-				lsp_map("<leader>wr", vim.lsp.buf.remove_workspace_folder, bufnr, "[W]orkspace [R]emove Folder")
-				lsp_map("<leader>wl", function()
-					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-				end, bufnr, "[W]orkspace [L]ist Folders")
+				lsp_map("gD", vim.lsp.buf.declaration, bufnr, "Goto Declaration")
 
 				-- Create a command `:Format` local to the LSP buffer
 				vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
 					vim.lsp.buf.format()
 				end, { desc = "Format current buffer with LSP" })
 
-				lsp_map("<leader>fd", "<cmd>Format<cr>", bufnr, "[F]ormat [D]ocument")
+				lsp_map("<leader>ff", "<cmd>Format<cr>", bufnr, "Format")
 
 				-- Attach and configure vim-illuminate
 				require("illuminate").on_attach(client)

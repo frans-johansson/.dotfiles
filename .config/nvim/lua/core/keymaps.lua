@@ -4,18 +4,14 @@ local map = require("helpers.keys").map
 map("i", "jk", "<esc>")
 
 -- Quick access to some common actions
-map("n", "<leader>wf", "<cmd>w<cr>", "[W]rite [F]ile")
-map("n", "<leader>Wf", "<cmd>wa<cr>", "[W]rite All [F]iles")
-map("n", "<leader>q", "<cmd>q<cr>", "[Q]uit")
-map("n", "<leader>Q", "<cmd>qa!<cr>", "[Q]uit")
-map("n", "<leader>c", "<cmd>close<cr>", "[C]lose Window")
+map("n", "<leader>fw", "<cmd>w<cr>", "Write")
+map("n", "<leader>fa", "<cmd>wa<cr>", "Write all")
+map("n", "<leader>qq", "<cmd>q<cr>", "Quit")
+map("n", "<leader>qa", "<cmd>qa!<cr>", "Quit all")
+map("n", "<leader>dw", "<cmd>close<cr>", "Window")
 
 -- Diagnostic keymaps
-map("n", "[d", vim.diagnostic.goto_prev)
-map("n", "]d", vim.diagnostic.goto_next)
--- This is handled by Trouble largely now
--- map('n', '<leader>x', vim.diagnostic.open_float)
--- map('n', '<leader>q', vim.diagnostic.setloclist)
+map('n', 'gx', vim.diagnostic.open_float)
 
 -- Better window navigation
 map("n", "<C-h>", "<C-w><C-h>", "Navigate windows to the left")
@@ -37,9 +33,9 @@ map("n", "<C-Right>", ":vertical resize -2<CR>")
 
 -- Deleting buffers
 local buffers = require("helpers.buffers")
-map("n", "<leader>dd", buffers.delete_this, "[D]elete the current buffer")
-map("n", "<leader>do", buffers.delete_others, "[D]elete the [O]ther buffers")
-map("n", "<leader>da", buffers.delete_all, "[D]elete [A]ll buffers")
+map("n", "<leader>db", buffers.delete_this, "Current buffer")
+map("n", "<leader>do", buffers.delete_others, "Other buffers")
+map("n", "<leader>da", buffers.delete_all, "All buffers")
 
 -- Navigate buffers
 map("n", "<S-l>", ":bnext<CR>")
@@ -50,10 +46,13 @@ map("v", "<", "<gv")
 map("v", ">", ">gv")
 
 -- Switch between light and dark modes
-map("n", "<leader>tt", function()
+map("n", "<leader>ut", function()
 	if vim.o.background == "dark" then
 		vim.o.background = "light"
 	else
 		vim.o.background = "dark"
 	end
-end, "[T]oggle between light/dark [T]heme")
+end, "Toggle between light and dark themes")
+
+-- Clear after search
+map("n", "<leader>ur", "<cmd>nohl<cr>", "Clear highlights")

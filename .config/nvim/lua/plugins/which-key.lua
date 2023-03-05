@@ -15,6 +15,7 @@ return {
 						l = { name = "LSP" },
 						u = { name = "UI" },
 						b = { name = "Debugging" },
+						g = { name = "Git" },
 					}
 				}
 			)

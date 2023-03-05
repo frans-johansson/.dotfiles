@@ -13,11 +13,16 @@ map("n", "<leader>dw", "<cmd>close<cr>", "Window")
 -- Diagnostic keymaps
 map('n', 'gx', vim.diagnostic.open_float)
 
+-- Easier access to beginning and end of lines
+map("n", "<M-h>", "^", "Go to beginning of line")
+map("n", "<M-l>", "$", "Go to end of line")
+
 -- Better window navigation
-map("n", "<C-h>", "<C-w><C-h>", "Navigate windows to the left")
-map("n", "<C-j>", "<C-w><C-j>", "Navigate windows down")
-map("n", "<C-k>", "<C-w><C-k>", "Navigate windows up")
-map("n", "<C-l>", "<C-w><C-l>", "Navigate windows to the right")
+-- This is now handled bey the tmux navigation plugin
+-- map("n", "<C-h>", "<C-w><C-h>", "Navigate windows to the left")
+-- map("n", "<C-j>", "<C-w><C-j>", "Navigate windows down")
+-- map("n", "<C-k>", "<C-w><C-k>", "Navigate windows up")
+-- map("n", "<C-l>", "<C-w><C-l>", "Navigate windows to the right")
 
 -- Move with Shift-Arrows
 map("n", "<S-Left>", "<C-w><S-h>", "Move window to the left")

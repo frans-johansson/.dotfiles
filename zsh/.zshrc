@@ -5,29 +5,27 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Lines configured by zsh-newuser-install
+# Settings
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=1000
 setopt extendedglob
 unsetopt beep
-bindkey -e
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/home/frans/.zshrc'
+bindkey -v
 
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
+# Use nix
+[[ -e /home/frans/.nix-profile/etc/profile.d/nix.sh ]] && source /home/frans/.nix-profile/etc/profile.d/nix.sh
 
-if [ -e /home/frans/.nix-profile/etc/profile.d/nix.sh ]; then . /home/frans/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
+# Source environment stuff
 source $HOME/.config/aliases.zsh
 source $HOME/.config/env.zsh
 source $HOME/.config/plugins.zsh
 
+# Source third party stuff
 source $(fzf-share)/key-bindings.zsh
 source $(fzf-share)/completion.zsh
+eval "$(direnv hook zsh)"
+eval "$(zoxide init zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

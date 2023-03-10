@@ -16,5 +16,7 @@ return {
 
 	"sainnhe/everforest",
 
-	"savq/melange-nvim"
+	"savq/melange-nvim",
+
+	"navarasu/onedark.nvim"
 }

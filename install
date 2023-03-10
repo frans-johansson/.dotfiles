@@ -1,0 +1,41 @@
+#! /bin/bash
+set -e
+
+# Install and source Nix as a cross-platform package manager
+curl -L https://nixos.org/nix/install | sh
+source ~/.nix-profile/etc/profile.d/nix.sh
+
+# Install packages with Nix
+nix-env -iA \
+    nixpkgs.python310 \                 # Python 3.10
+    nixpkgs.python310Packages.pip \     # ... with pip
+    nixpkgs.python310Packages.ipython \ # ... and ipython
+    nixpkgs.python310Packages.ipdb \    # ... and ipdb
+    nixpkgs.python310Packages.pynvim \  # ... and pynvim (to appease Neovim)
+    nixpkgs.pipenv \                    # Python environement management
+    nixpkgs.git \                       # A relatively recent version of git
+    nixpkgs.gnumake \                   # For the "make" command
+    nixpkgs.gcc \                       # A C/C++ compiler is always handy
+    nixpkgs.curl \                      # Because this file needs curl
+    nixpkgs.neovim \                    # My weapon of choice
+    nixpkgs.stow \                      # To handle all the dotfiles
+    nixpkgs.direnv \                    # Per-directory environment set-up
+    nixpkgs.fzf \                       # A fuzzy finder for the terminal
+    nixpkgs.ripgrep \                   # A better grep
+    nixpkgs.exa \                       # A better ls
+    nixpkgs.du-dust \                   # A better du
+    nixpkgs.starship \                  # A better prompt
+    nixpkgs.fd \                        # A better find
+    nixpkgs.bat \                       # A better cat
+    nixpkgs.bottom \                    # A better htop
+    nixpkgs.zoxide \                    # Easily navigate to recent directories
+
+# Set up TPM for tmux
+if [[ ! -d $HOME/.tmux ]]
+then
+    git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+fi
+
+# Take care of some final fzf set-up
+mkdir $HOME/.local/fzf
+curl https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.bash > $HOME/.local/fzf/keys.bash

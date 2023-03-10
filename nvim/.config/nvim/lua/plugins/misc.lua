@@ -45,6 +45,7 @@ return {
 			map("n", "<leader>us", "<cmd>SymbolsOutline<cr>", "Toggle symbols outline")
 		end
 	},
+	"typicode/bg.nvim", -- Have the terminal background match the colorscheme
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 	"tpope/vim-surround", -- Surround stuff with the ys-, cs-, ds- commands
 }

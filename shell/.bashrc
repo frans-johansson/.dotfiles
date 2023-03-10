@@ -31,9 +31,11 @@ if [[ -f ~/.bash_aliases ]]; then
     . ~/.bash_aliases
 fi
 
+# Set up Nix
+[ -e /home/frans/.nix-profile/etc/profile.d/nix.sh ] && source /home/frans/.nix-profile/etc/profile.d/nix.sh
+
 # Set up additional third-party functionality
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-source "$HOME/.cargo/env"
+[ -f ~/.local/fzf/keys.bash ] && source ~/.local/fzf/keys.bash
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
 eval "$(direnv hook bash)"

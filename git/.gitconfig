@@ -1,0 +1,7 @@
+[core]
+	editor = nvim
+[user]
+	name = Frans Johansson
+	email = fransjohansson98@gmail.com
+[diff]
+	external = difft

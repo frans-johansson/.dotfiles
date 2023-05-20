@@ -1,0 +1,231 @@
+#!/bin/bash
+#
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┑
+# ┃ Setup script for Ubuntu environments. Tailored to work for Ubuntu 22.04 LTS. ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ 
+#
+#  Note: This script is part of my personal .dotfiles repository. The final step
+#        utilizing stow to set up all the config files will only work if this is
+#        cloned from my repository, or if you're running this script from your
+#        own .dotfiles directory.
+#
+
+set -e  # Exit on first error 
+
+## Utilities
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Color codes
+INFO="\033[1;36m"
+ERROR="\033[0;31m"
+WARNING="\033[1;33m"
+SUCCESS="\033[1;32m"
+NC="\033[0m"
+
+# Utility function to handle each step of the set up
+# Takes a function evaluating the step as its first input and
+# a boolean value indicating whether to run the step as its second argument
+function handle_step()
+{
+    if [[ -z $2 ]]
+    then
+        $1
+    else
+        printf "${WARNING}SKIPPING!${NC}\n\n"
+        return
+    fi
+
+    # Print results
+    if [[ $? -eq 0 ]]
+    then
+        printf "${SUCCESS}SUCCESS!${NC}\n\n"
+    else
+        printf "${ERROR}FAILED!${NC}\n\n"
+    fi
+}
+
+# Informs the user a step has already been peformed
+function skipping()
+{
+    printf " - ${INFO}$1${NC} already installed\n"
+}
+
+# Informs the user about how the script works
+function print_usage()
+{
+    printf "Setup script tailored for Ubuntu 22.04\n\n"
+    printf "Usage:\n"
+    printf "  ./setup_system.sh [options]\n\n"
+    printf "OPTIONS\n"
+    printf "  -h, --help        Show this help message\n"
+    printf "  --no-external     Skip installing external (non-repository) packages\n"
+    printf "  --no-rust         Skip installing Rust and related utilites\n"
+    printf "  --no-python       Skip installing Python packages\n"
+    printf "  --no-stow         Skip stowing the config files into HOME\n"
+}
+
+
+## Handle arguments
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --help|-h)
+      print_usage
+      exit 0
+      ;;
+    --no-external)
+      SKIP_EXTERNAL=1
+      shift
+      ;;
+    --no-rust)
+      SKIP_RUST=1
+      shift
+      ;;
+    --no-python)
+      SKIP_PYTHON=1
+      shift
+      ;;
+    --no-stow)
+      SKIP_STOW=1
+      shift
+      ;;
+    -*|--*)
+      print_usage
+      printf "\n${ERROR}Unknown option $1${NC}\n"
+      exit 1
+      ;;
+    *)
+      print_usage
+      printf "\n${ERROR}Unexpected positional argument $1${NC}\n"
+      exit 1
+      ;;
+  esac
+done
+
+
+## Set up the environment and home directory
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# If these variables are not set in the environment, we have defaults
+[[ -z $SOURCE_DIR ]] && SOURCE_DIR="$HOME/Source" 
+[[ -z $BINARY_DIR ]] && BINARY_DIR="$HOME/Binaries" 
+
+mkdir -p $SOURCE_DIR
+mkdir -p $BINARY_DIR
+
+
+## Update apt and install some bare necessities
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function apt_update()
+{
+    sudo apt update -y
+}
+printf "${INFO}Updating Ubuntu repository packages...\n${NC}"
+handle_step apt_update 
+
+
+function install_apt_packages()
+{
+    sudo apt install build-essential -y           # Literally essential to install
+    sudo apt install python3-pip python3-dev -y   # Get Python up and running
+    sudo apt install python3.10-venv -y           # Get Python up and running
+    sudo apt install tmuxinator -y                # Neat project handler for tmux
+    sudo apt install tig -y                       # A pretty cool and feature-rich text-interface for git
+    sudo apt install fuse -y                      # Allows for environment configuration on a directory level
+    sudo apt install direnv -y                    # Allows for environment configuration on a directory level
+    sudo apt install stow -y                      # Sets up symbolic links to all the configuration files
+}
+printf "${INFO}Installing packages from the Ubuntu repositories...\n${NC}"
+handle_step install_apt_packages
+
+
+## Download and install non-repository software
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function non_apt_packages()
+{
+    # A better prompt
+    if [[ ! -f $BINARY_DIR/starship ]]
+    then
+        curl -Ss https://starship.rs/install.sh | sh -s -- -y -b $BINARY_DIR
+    else
+        skipping starship
+    fi
+
+    # A better editor
+    if [[ ! -f $BINARY_DIR/nvim ]]
+    then
+        curl -Ls https://github.com/neovim/neovim/releases/download/stable/nvim.appimage > $BINARY_DIR/nvim
+        chmod +x $BINARY_DIR/nvim
+    else
+        skipping nvim
+    fi
+
+    # A better fuzzy finder
+    if [[ ! -d $SOURCE_DIR/fzf ]]
+    then
+        git clone https://github.com/junegunn/fzf.git $SOURCE_DIR/fzf
+        yes | $SOURCE_DIR/fzf/install
+    else
+        skipping fzf
+    fi
+}
+printf "${INFO}Installing additional external packages...\n${NC}"
+handle_step non_apt_packages $SKIP_EXTERNAL
+
+
+## Set up TPM for tmux
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function setup_tpm()
+{
+    if [[ ! -d $HOME/.tmux ]]
+    then
+        git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+    else
+        skipping TPM
+    fi
+}
+printf "${INFO}Setting up TPM for tmux...\n${NC}"
+handle_step setup_tpm $SKIP_EXTERNAL
+
+
+## Rust stuff
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function rust_stuff()
+{
+    if ! command -v rustup &> /dev/null
+    then
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y 
+    else
+        skipping rustup
+    fi
+
+    source "$HOME/.cargo/env"
+    cargo install exa fd-find du-dust bottom bat ripgrep zoxide difftastic  # Some nice alternatives to the core utils
+}
+printf "${INFO}Setting up Rust and installing some utilities with cargo...\n${NC}"
+handle_step rust_stuff $SKIP_RUST
+
+
+## Python stuff
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function python_stuff()
+{
+    python3 -m pip install -U pip
+    python3 -m pip install pipenv     # Environment handling
+    python3 -m pip install ipython    # For a better REPL experience
+    python3 -m pip install ipykernel  # In case I ever want to work with notebooks
+    python3 -m pip install pynvim     # Specically required to make Neovim stop complaining
+}
+printf "${INFO}Setting up Python 3...\n${NC}"
+handle_step python_stuff $SKIP_PYTHON
+
+
+## Use stow to finalize the system config
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function stow_dotfiles()
+{
+    stow bash git nvim tmux
+}
+printf "${INFO}Stowing dotfiles...\n${NC}"
+handle_step stow_dotfiles $SKIP_STOW
+

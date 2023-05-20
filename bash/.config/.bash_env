@@ -1,0 +1,14 @@
+#
+# Environment variables for bash
+#
+
+export LOCAL_BINARY_DIR="$HOME/.local/bin"
+
+# Append to the PATH variable
+PATH="$PATH:$LOCAL_BINARY_DIR"
+export PATH
+
+# My weapon of choice
+[[ -f $LOCAL_BINARY_DIR/nvim ]] && EDITOR=$LOCAL_BINARY_DIR/nvim || EDITOR=$(which vim)
+export EDITOR
+

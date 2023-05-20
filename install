@@ -211,10 +211,10 @@ handle_step rust_stuff $SKIP_RUST
 function python_stuff()
 {
     python3 -m pip install -U pip
-    python3 -m pip install pipenv     # Environment handling
     python3 -m pip install ipython    # For a better REPL experience
     python3 -m pip install ipykernel  # In case I ever want to work with notebooks
-    python3 -m pip install pynvim     # Specically required to make Neovim stop complaining
+    python3 -m pip install ipdb       # Nicer Python terminal debugging
+    python3 -m pip install neovim     # Specically required to make Neovim stop complaining
 }
 printf "${INFO}Setting up Python 3...\n${NC}"
 handle_step python_stuff $SKIP_PYTHON

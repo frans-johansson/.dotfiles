@@ -16,6 +16,29 @@ shopt -s histappend      # Only append, never overwrite, the history file
 # Check for window size updates
 shopt -s checkwinsize
 
+# Set up the prompt
+source /etc/bash_completion.d/git-prompt
+export GIT_PS1_SHOWDIRTYSTATE=1
+
+PROMPT_COMMAND=__prompt_command
+
+__prompt_command() {
+    local EXIT="$?"
+    PS1="\$ "
+
+    local RES='\[\e[0m\]'
+    local RED='\[\e[91m\]'
+    local GRE='\[\e[94m\]'
+
+    if [ $EXIT != 0 ]; then
+        PS1+="${RED}(💥)${RES}"
+    else
+	PS1+="${GRE}(🦝)${RES}"
+    fi
+
+    PS1+=' \[\e[96m\]\W\[\e[0m\]$(__git_ps1 " [\[\e[95m\] %s\[\e[0m\]]")  '
+}
+
 # Make sure any Cargo binaries are visible from this point
 source "$HOME/.cargo/env"
 
@@ -40,10 +63,6 @@ if [[ -f /usr/share/doc/fzf/examples/key-bindings.bash ]]; then
 fi
  
 # Set up additional third-party functionality
-if command -v starship &> /dev/null; then
-    eval "$(starship init bash)"
-fi
-
 if command -v zoxide &> /dev/null; then
     eval "$(zoxide init bash)"
 fi

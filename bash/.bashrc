@@ -36,7 +36,16 @@ __prompt_command() {
 	PS1+="${GRE}(🦝)${RES}"
     fi
 
-    PS1+=' \[\e[96m\]\W\[\e[0m\]$(__git_ps1 " [\[\e[95m\] %s\[\e[0m\]]")  '
+    PS1+=" \[\e[96m\]\W\[\e[0m\]$(__git_ps1 ' [\[\e[95m\] %s\[\e[0m\]]') "
+
+    # Python virtual environment
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        # Strip out the path and just leave the env name
+        VENV="${VIRTUAL_ENV##*/}"
+	PS1+="[🐍 ${GRE}$VENV${RES}] "	
+    fi
+
+    PS1+=" "
 }
 
 # Make sure any Cargo binaries are visible from this point

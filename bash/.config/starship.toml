@@ -1,6 +1,0 @@
-
-command_timeout = 1000
-
-[jobs]
-disabled = true
-

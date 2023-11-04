@@ -79,3 +79,5 @@ fi
 if command -v direnv &> /dev/null; then
     eval "$(direnv hook bash)"
 fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

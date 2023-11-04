@@ -107,11 +107,11 @@ done
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 # If these variables are not set in the environment, we have defaults
-[[ -z $SOURCE_DIR ]] && SOURCE_DIR="$HOME/Source" 
-[[ -z $BINARY_DIR ]] && BINARY_DIR="$HOME/Binaries" 
+[[ -z $LOCAL_SOURCE_DIR ]] && LOCAL_SOURCE_DIR="$HOME/.local/src" 
+[[ -z $LOCAL_BINARY_DIR ]] && LOCAL_BINARY_DIR="$HOME/.local/bin" 
 
-mkdir -p $SOURCE_DIR
-mkdir -p $BINARY_DIR
+mkdir -p $LOCAL_SOURCE_DIR
+mkdir -p $LOCAL_BINARY_DIR
 
 
 ## Update apt and install some bare necessities
@@ -127,13 +127,13 @@ handle_step apt_update
 function install_apt_packages()
 {
     sudo apt install build-essential -y           # Literally essential to install
+    sudo apt install curl -y                      # Literally essential to install
     sudo apt install python3-pip python3-dev -y   # Get Python up and running
     sudo apt install python3.10-venv -y           # Get Python up and running
-    sudo apt install tmuxinator -y                # Neat project handler for tmux
-    sudo apt install tig -y                       # A pretty cool and feature-rich text-interface for git
-    sudo apt install fuse -y                      # Allows for environment configuration on a directory level
+    sudo apt install fuse -y                      # For running AppImages
     sudo apt install direnv -y                    # Allows for environment configuration on a directory level
     sudo apt install stow -y                      # Sets up symbolic links to all the configuration files
+    sudo apt install jq -y                        # Neat utility for parsing JSON files in the command line
 }
 printf "${INFO}Installing packages from the Ubuntu repositories...\n${NC}"
 handle_step install_apt_packages
@@ -143,28 +143,20 @@ handle_step install_apt_packages
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function non_apt_packages()
 {
-    # A better prompt
-    if [[ ! -f $BINARY_DIR/starship ]]
-    then
-        curl -Ss https://starship.rs/install.sh | sh -s -- -y -b $BINARY_DIR
-    else
-        skipping starship
-    fi
-
     # A better editor
-    if [[ ! -f $BINARY_DIR/nvim ]]
+    if [[ ! -f $LOCAL_BINARY_DIR/nvim ]]
     then
-        curl -Ls https://github.com/neovim/neovim/releases/download/stable/nvim.appimage > $BINARY_DIR/nvim
-        chmod +x $BINARY_DIR/nvim
+        curl -Ls https://github.com/neovim/neovim/releases/download/stable/nvim.appimage > $LOCAL_BINARY_DIR/nvim
+        chmod +x $LOCAL_BINARY_DIR/nvim
     else
         skipping nvim
     fi
 
     # A better fuzzy finder
-    if [[ ! -d $SOURCE_DIR/fzf ]]
+    if [[ ! -d $LOCAL_SOURCE_DIR/fzf ]]
     then
-        git clone https://github.com/junegunn/fzf.git $SOURCE_DIR/fzf
-        yes | $SOURCE_DIR/fzf/install
+        git clone https://github.com/junegunn/fzf.git $LOCAL_SOURCE_DIR/fzf
+        yes | $LOCAL_SOURCE_DIR/fzf/install
     else
         skipping fzf
     fi

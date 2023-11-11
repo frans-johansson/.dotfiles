@@ -14,7 +14,7 @@ git submodule update --init --recursive
 
 Changes will not be noticeable until you start a new shell, e.g. by running `bash`.
 
-In case of errors to the tune of *"stowing ... would cause conflicts"*, you probably need to move your existing config files out of your home directory.
+In case of errors to the tune of *"stowing ... would cause conflicts"*, you probably need to move your existing config files out of your home directory. This is likely to happen even on a freshly set up system since a default .bashrc is likely to exist in your home directory.
 
 ## Requirements
 - A [Nerd Font](https://www.nerdfonts.com/) of your choice
@@ -23,9 +23,9 @@ In case of errors to the tune of *"stowing ... would cause conflicts"*, you prob
 The setup script will set up some software I enjoy using in my Linux environments. The dotfiles subsequently setup convenient aliases for some of these (mainly replacing `ls` with `exa`).
 
 ### The "bare necessities"
-Besides running `apt update` and `apt upgrade`, a number of *"bare necessities"* are installed, including `build-essential` and `stow` (utilized in the end of the script to symlink all the config files to the home directory). A few packages are installed from outside the Ubuntu repositories (mostly due to their iffy support in Ubuntu 18.04):
+Besides running `apt update` and `apt upgrade`, a number of *"bare necessities"* are installed, including `build-essential` and `stow` (utilized in the end of the script to symlink all the config files to the home directory).
 
-- The [Starship](https://starship.rs/) prompt (⚠️ This will require a compatible Nerd Font to display properly).
+- A custom bash PS1 with woodland critters 🦝 (This will require a compatible Nerd Font to display properly).
 - The fuzzy-finder utility [fzf](https://github.com/junegunn/fzf).
 - The latest stable version of [Neovim](https://neovim.io/).
 - A number of Rust alternatives to core utils, including `exa`, `fd-find`, `du-dust` and `ripgrep`.

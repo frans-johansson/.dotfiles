@@ -57,13 +57,13 @@ if command -v bat &> /dev/null; then
 fi
 
 # Source environment variables
-if [[ -f ~/.config/.bash_env ]]; then
-    source ~/.config/.bash_env
+if [[ -f ~/.config/bash_env ]]; then
+    source ~/.config/bash_env
 fi
 
 # Source aliases
-if [[ -f ~/.config/.bash_aliases ]]; then
-    source ~/.config/.bash_aliases
+if [[ -f ~/.config/bash_aliases ]]; then
+    source ~/.config/bash_aliases
 fi
 
 # Set up fzf

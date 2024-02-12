@@ -31,7 +31,7 @@ __prompt_command() {
     local GRE='\[\e[94m\]'
 
     if [ $EXIT != 0 ]; then
-        PS1+="${RED}(💥)${RES}"
+        PS1+="${RED}(💥) [$EXIT]${RES}"
     else
 	PS1+="${GRE}(🦝)${RES}"
     fi

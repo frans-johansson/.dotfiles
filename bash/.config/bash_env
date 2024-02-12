@@ -4,10 +4,14 @@
 
 export LOCAL_BINARY_DIR="$HOME/.local/bin"
 export LOCAL_SOURCE_DIR="$HOME/.local/src"
+export LOCAL_UTIL_DIR="$HOME/.local/util"
 
 # Append to the PATH variable
 PATH="$PATH:$LOCAL_BINARY_DIR"
 export PATH
+
+# Source my tooling/utils
+[[ -f $LOCAL_UTIL_DIR/init.sh ]] && source $LOCAL_UTIL_DIR/init.sh
 
 # My weapon of choice
 [[ -f $LOCAL_BINARY_DIR/nvim ]] && EDITOR=$LOCAL_BINARY_DIR/nvim || EDITOR=$(which vim)

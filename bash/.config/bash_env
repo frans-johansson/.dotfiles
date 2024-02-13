@@ -4,7 +4,7 @@
 
 export LOCAL_BINARY_DIR="$HOME/.local/bin"
 export LOCAL_SOURCE_DIR="$HOME/.local/src"
-export LOCAL_UTIL_DIR="$HOME/.local/util"
+export LOCAL_UTIL_DIR="$HOME/.local/utils"
 
 # Append to the PATH variable
 PATH="$PATH:$LOCAL_BINARY_DIR"
